@@ -7,7 +7,7 @@
       private $modificationDate;
 
       public __construct($subject, $thePost, $modifiedBy, $modificationDate){
-          $this->setSubject($);
+          $this->setSubject($subject);
           $this->setThePost();
           $this->setModifiedBy();
           $this->setModificationDate();
