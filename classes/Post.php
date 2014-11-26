@@ -10,7 +10,7 @@
           $this->setId(0);
           $this->setSubject(null);
           $this->setThePost(null);
-          $this->setModifiedBy(null);
+          $this->setModifiedBy(0);
           $this->setModificationDate(null);
       }
 
@@ -91,8 +91,7 @@
      *
      * @return mixed
      */
-    public function getModifiedBy()
-    {
+    public function getModifiedBy(){
         return $this->modifiedBy;
     }
 

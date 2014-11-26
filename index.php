@@ -21,90 +21,23 @@ $_SESSION['token'] = $token;
 <!doctype html>
 <html lang="en">
 <head>
-<title>Facebook comments, like system using PHP, jQuery and AJAX - A tutorial by akshitsethi.me</title>
+<title>A php plugin for forum (with post and comments for the post - by mahder)</title>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="Description" content="Create a Facebook like comments system using PHP, jQuery and AJAX." />
-<meta name="Keywords" content="" />
-<meta name="Owner" content="Akshit Sethi" />
-<link rel="shortcut icon" href="img/favicon.ico">
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.timeago.js"></script>
-<script type="text/javascript" src="js/jquery.autosize.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	var msg = '#message';
+<link href="css/fb-buttons.css" media="screen" rel="stylesheet" type="text/css" />
 
-	$('.time').timeago();
-	$(msg).autosize();
-
-	$('#post_comment').click(function() {
-		$(msg).focus();
-	});
-
-	$(msg).keypress(function(e) {
-		if(e.which == 13) {
-			var val = $(msg).val();
-
-			$.ajax({
-				url: 'php/ajax.php',
-				type: 'GET',
-				data: 'token=<?php echo $token; ?>&msg='+encodeURIComponent(val),
-				success: function(data) {
-					$(msg).val('');
-					$(msg).css('height','14px');
-					$('#commentscontainer').append(data);
-					$('.time').timeago();
-				}
-			});
-		}
-	});
-
-	$('#like_post').click(function() {
-		var count = parseFloat($('#count').html()) + 1;
-		if(count > 1) {
-			$('#if_like').html('You and');
-			$('#people').html('others');
-		} else {
-			$('#if_like').html('You like this.');
-			$('#likecontent').hide();
-		}
-
-		$('#like_post').hide();
-		$('#unlike_post').show();
-	});
-
-	$('#unlike_post').click(function() {
-		var count = parseFloat($('#count').html()) - 1;
-		if(count < 1) {
-			$('#likecontent').show();
-		}
-		$('#unlike_post').hide();
-		$('#like_post').show();
-		$('#if_like').html('');
-		$('#people').html('people');
-	});
-});
-</script>
 </head>
 <body>
-	<div class="header">
-		<div class="header-inner clearfix">
-			<div class="pull-left">
-				<a href="http://www.akshitsethi.me" target="_blank"><img src="img/logo.png" class="logo"></a>
-			</div>
-
-			<div class="pull-right">
-				<p class="small-text no-margin"><span class="highlight">Facebook comments, like system using <strong>PHP</strong>, <strong>jQuery</strong> and <strong>AJAX</strong></span></p>
-			</div>
-		</div>
-	</div>
-
 	<div class="container">
 		<div class="page-header">
-			<h1>Facebook comments, like system using PHP, jQuery, and AJAX</h1>
-			<p>The main idea behind bringing this tutorial for you all is to explain and help you understand how we can implement a ajax comments system which is safe from <span class="highlight">CSRF / XSRF</span> attacks and looks decent enough. Below is the sweet demo. Please note that we are not storing any comments in the database.</p>
+			<h1>Welcome to Jungto Forum:</h1>
+			<textarea class="subject-holder" placeholder="Write subject of your post..." id="textareasubject"></textarea>
+			<textarea class="post-holder" placeholder="Write a post for the subject entered..." id="textareapost"></textarea>
+			<br/>
+			<div class="pull-right">
+				<input type="button" value="Post" class="uibutton large confirm"/>
+			</div>
 		</div>
 
 		<div class="content">
@@ -154,9 +87,8 @@ $(document).ready(function() {
 			</div>
 		</div>
 
-		<div class="page-footer">
-			<p>A small piece of code by <strong><a href="http://www.akshitsethi.me" target="_blank">Akshit Sethi</a></strong></p>
-		</div>
+
 	</div>
+	<?php require_once 'javascript_imports.php';?>
 </body>
 </html>

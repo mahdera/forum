@@ -473,3 +473,19 @@ body {
   padding: 3px;
   width: 394px;
 }
+
+.subject-holder{
+  resize: none;
+  border: 1px solid #bdc7d8;
+  height: 14px;
+  padding: 3px;
+  width: 642px;
+}
+
+.post-holder{
+  resize: none;
+  border: 1px solid #bdc7d8;
+  height: 64px;
+  padding: 3px;
+  width: 642px;
+}
