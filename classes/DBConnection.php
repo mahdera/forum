@@ -23,7 +23,7 @@ class DBConnection {
 
   public static function executeQuery($query){
     $dbConnection = DBConnection::connect();
-    mysql_select_db("dbstaff_ld", $dbConnection);
+    mysql_select_db("db_forum", $dbConnection);
     $result = mysql_query($query);
     return $result;
   }

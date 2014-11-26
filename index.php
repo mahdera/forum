@@ -36,7 +36,7 @@ $_SESSION['token'] = $token;
 			<textarea class="post-holder" placeholder="Write a post for the subject entered..." id="textareapost"></textarea>
 			<br/>
 			<div class="pull-right">
-				<input type="button" value="Post" class="uibutton large confirm"/>
+				<input type="button" value="Post" class="uibutton large confirm" id="btnPost"/>
 			</div>
 		</div>
 
