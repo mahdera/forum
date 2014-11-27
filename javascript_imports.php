@@ -12,18 +12,23 @@
         $(msg).focus();
       });
 
-      $(msg).keypress(function(e) {
+      $('.text-holder').keypress(function(e) {
         if(e.which == 13) {
-          var val = $(msg).val();
+          //var val = $(msg).val();
+          var val = $(this).val();
+          var crudId = $(this).attr('id');
+          var tokens = crudId.split("-");
+          var postId = tokens[1];
+          var divId = "commentscontainer-" + postId;
 
           $.ajax({
             url: 'php/ajax.php',
             type: 'GET',
-            data: 'token=<?php echo $token; ?>&msg='+encodeURIComponent(val),
+            data: 'msg='+encodeURIComponent(val)+'&postId='+postId,
             success: function(data) {
               $(msg).val('');
               $(msg).css('height','14px');
-              $('#commentscontainer').append(data);
+              $('#' + divId).append(data);
               $('.time').timeago();
             }
           });
@@ -54,5 +59,23 @@
         $('#if_like').html('');
         $('#people').html('people');
       });
-    });
+
+      $('#btnPost').click(function(){
+        var thePost = $('#textareapost').val();
+        var topic = $('#textareatopic').val();
+        if(thePost != "" && topic != ""){
+          $.ajax({
+            url: 'php/ajax_post.php',
+            type: 'POST',
+            data: 'thePost='+encodeURIComponent(thePost)+'&topic='+encodeURIComponent(topic),
+            success: function(data) {
+              $('#reloadSection').load('fetchlatestupdate.php');
+            }
+          });
+        }else{
+          alert('Enter topic and post text!');
+        }
+      });
+
+    });//end document.ready function
 </script>

@@ -455,6 +455,15 @@ body {
   width: 400px;
 }
 
+.post-text {
+  margin-left: 8px;
+  color: #333;
+  line-height: 15px;
+  width: 540px;
+  background: #edeff4;
+  padding-bottom: 5px;
+}
+
 .info {
   display: block;
   margin-top: 2px;

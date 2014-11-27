@@ -6,20 +6,22 @@
 
 session_start();
 include('functions.php');
+require_once '../classes/Comment.php';
 
 ## Server's date and time. Converting it as per local time.
 $date = date('Y-m-d H:i:s');
 $date = date('c', strtotime($date));
 
-if(isset($_GET['token']) && isset($_GET['msg'])) {
-	$token = clean_input($_GET['token']);
+if(isset($_GET['postId']) && isset($_GET['msg'])) {
+	$postId = $_GET['postId'];
 	$msg = clean_input($_GET['msg']);
-		if(!empty($token) && !empty($msg)) {
-			if(isset($_SESSION['token']) && $token == $_SESSION['token']) {
-				/*
-					@@ We have done the validation and sending the result back to the index.php page.
-					Normally, in an application we would be saving the information in the database.
-				*/
+		if(!empty($postId) && !empty($msg)) {
+			if(true) {				
+				$comment = new Comment();
+				$comment->setPostId($postId);//next iteration post id is going to be grabbed from the caller.
+				$comment->setTheComment($msg);
+				$comment->setModifiedBy(2);//this is going to be replaced by the user's logged in id (session ownder)
+				$comment->save();
 
 ?>
 				<div class="comments clearfix">
@@ -28,6 +30,7 @@ if(isset($_GET['token']) && isset($_GET['msg'])) {
 					</div>
 
 					<div class="comment-text pull-left">
+						<!--facebook user will have to be replaced by the session value of full name-->
 						<span class="color strong"><a href="#">Facebook User</a></span> &nbsp;<?php echo $msg; ?>
 						<span class="info"><abbr class="time" title="<?php echo $date; ?>"></abbr></span>
 					</div>

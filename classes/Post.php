@@ -2,13 +2,13 @@
   require_once 'DBConnection.php';
   class Post{
       private $id;
-      private $subject;
+      private $topic;
       private $thePost;
       private $modifiedBy;
 
-      public __construct(){
+      public function __construct(){
           $this->setId(0);
-          $this->setSubject(null);
+          $this->setTopic(null);
           $this->setThePost(null);
           $this->setModifiedBy(0);
           $this->setModificationDate(null);
@@ -43,9 +43,9 @@
      *
      * @return mixed
      */
-    public function getSubject()
+    public function getTopic()
     {
-        return $this->subject;
+        return $this->topic;
     }
 
     /**
@@ -55,9 +55,9 @@
      *
      * @return self
      */
-    public function setSubject($value)
+    public function setTopic($value)
     {
-        $this->subject = $value;
+        @$this->topic = mysql_real_escape_string($value);
 
         return $this;
     }
@@ -81,7 +81,7 @@
      */
     public function setThePost($value)
     {
-        $this->thePost = $value;
+        @$this->thePost = mysql_real_escape_string($value);
 
         return $this;
     }
@@ -109,9 +109,17 @@
         return $this;
     }
 
+    public function setModificationDate($value){
+        $this->modificationDate = $value;
+    }
+
+    public function getModificationDate(){
+        return $this->modificationDate;
+    }
+
     public function save(){
       try{
-        $query = "insert into tbl_post values(0, '$this->subject', '$this->thePost', '$this->modifiedBy',NOW() )";
+        $query = "insert into tbl_post values(0, '$this->topic', '$this->thePost', '$this->modifiedBy',NOW() )";
         DBConnection::save($query);
       }catch(Exception $ex){
         $ex->getMessage();
@@ -120,7 +128,7 @@
 
     public static function update($post){
       try{
-        $query = "update tbl_post set the_post = '$post->getSubject()', '$post->getThePost()', modified_by = $post->getModifiedBy(), modification_date = NOW() where id = $post->getId()";
+        $query = "update tbl_post set topic = '$post->getTopic()', the_post = '$post->getSubject()', '$post->getThePost()', modified_by = $post->getModifiedBy(), modification_date = NOW() where id = $post->getId()";
         DBConnection::save($query);
       }catch(Exception $ex){
         $ex->getMessage();

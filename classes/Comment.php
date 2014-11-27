@@ -84,7 +84,7 @@
      */
     public function setTheComment($value)
     {
-        $this->theComment = $value;
+        @$this->theComment = mysql_real_escape_string($value);
 
         return $this;
     }
@@ -139,7 +139,7 @@
 
     public function save(){
       try{
-        $query = "insert into tbl_comment values(0, $this->post_id, '$this->the_comment', $this->modified_by, NOW() )";
+        $query = "insert into tbl_comment values(0, $this->postId, '$this->theComment', $this->modifiedBy, NOW() )";
         DBConnection::save($query);
       }catch(Exception $ex){
         $ex->getMessage();
@@ -167,6 +167,16 @@
     public static function getAllComments(){
       try{
         $query = "select * from tbl_comment order by modification_date desc";
+        $result = DBConnection::read($query);
+        return $result;
+      }catch(Exception $ex){
+        $ex->getMessage();
+      }
+    }
+
+    public static function getAllCommentsOfThisPost($postId){
+      try{
+        $query = "select * from tbl_comment where post_id = $postId order by modification_date asc";
         $result = DBConnection::read($query);
         return $result;
       }catch(Exception $ex){

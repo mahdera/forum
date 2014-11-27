@@ -15,7 +15,7 @@ class DBConnection {
     $server = "localhost";
     $username = "root";
     $password = "root";
-    $connection = mysql_pconnect($server, $username, $password);
+    @$connection = mysql_pconnect($server, $username, $password);
     return $connection;
   }
 
@@ -23,7 +23,7 @@ class DBConnection {
 
   public static function executeQuery($query){
     $dbConnection = DBConnection::connect();
-    mysql_select_db("db_forum", $dbConnection);
+    @mysql_select_db("db_forum", $dbConnection);
     $result = mysql_query($query);
     return $result;
   }
