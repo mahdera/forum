@@ -12,7 +12,11 @@
       <?php
         echo $postRow->the_post;
       ?>
-      <span class="info"><abbr class="time" title="<?php echo $postRow->modification_date;?>"></abbr></span>
+      <span class="info">
+        <abbr class="time" title="<?php echo $postRow->modification_date;?>"></abbr> |
+        <!--here compare the modified by value with the session user id and make the delete link available iff ownder is also poster-->
+        <a href="#.php" class="color deletePost" id="deletePost-<?php echo $postRow->id;?>">Delete</a>
+      </span>
     </div>
     <div class="like clearfix">
       <img src="img/like.png" class="pull-left">
@@ -22,7 +26,6 @@
     </div>
     <?php
     $commentList = Comment::getAllCommentsOfThisPost($postRow->id);
-    //if(mysql_num_rows($commentList)){
     ?>
     <div id="commentscontainer-<?php echo $postRow->id;?>">
     <?php
@@ -36,7 +39,11 @@
             <div class="comment-text pull-left">
               <span class="pull-left color strong"><a href="#"><?php echo $commentRow->modified_by;?></a></span> &nbsp;
               <?php echo $commentRow->the_comment;?>
-              <span class="info"><abbr class="time" title="<?php echo $commentRow->modification_date;?>"></abbr></span>
+              <span class="info">
+                <abbr class="time" title="<?php echo $commentRow->modification_date;?>"></abbr> |
+                <!--delete link should be available iff session ownder is the commenter as well-->
+                <a href="#.php" class="color deleteComment" id="deleteComment-<?php echo $commentRow->id;?>">Delete</a>
+              </span>
             </div>
           </div>
         <?php
@@ -54,7 +61,6 @@
       </div>
     </div>
     <?php
-    //}//end if mysql_num_rows
   }//end while loop - post
 ?>
 <?php require_once 'javascript_imports.php';?>

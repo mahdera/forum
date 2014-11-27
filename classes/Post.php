@@ -165,5 +165,21 @@
       }
     }
 
+    public static function isThereAtLeastOnePost(){
+      try{
+        $postCount = 0;
+        $query = "select count(*) as cnt from tbl_post";
+        $result = DBConnection::read($query);
+        $resultRow = mysql_fetch_object($result);
+        $postCount = $resultRow->cnt;
+        if($postCount)
+          return true;
+        else
+          return false;
+      }catch(Exception $ex){
+        $ex->getMessage();
+      }
+    }
+
 }//end class
 ?>

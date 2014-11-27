@@ -1,9 +1,7 @@
 <?php
 session_start();
 include('php/functions.php');
-
-//$token = get_token(20);
-//$_SESSION['token'] = $token;
+require_once 'classes/Post.php';
 
 ?>
 <!doctype html>
@@ -29,10 +27,16 @@ include('php/functions.php');
 		</div>
 
 		<div class="content">
-			<div class="links">
-				<a href="javascript:;" id="unlike_post" class="hide">Unlike</a><a href="javascript:;" id="like_post">Like</a> &middot; <a href="javascript:;" id="post_comment">Comment</a>
-			</div>
-
+			<?php
+				$isThereAnyPost = Post::isThereAtLeastOnePost();
+				if($isThereAnyPost){
+			?>
+				<div class="links">
+					<a href="javascript:;" id="unlike_post" class="hide">Unlike</a><a href="javascript:;" id="like_post">Like</a> &middot; <a href="javascript:;" id="post_comment">Comment</a>
+				</div>
+			<?php
+				}//end if post checker
+			?>
 			<div id="reloadSection">
 					<?php
 							require 'fetchlatestupdate.php';

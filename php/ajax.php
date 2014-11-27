@@ -1,14 +1,8 @@
 <?php
-/*
-	@! Facebook comments system
-	@@ Using PHP, jQuery, and AJAX
-*/
-
 session_start();
 include('functions.php');
 require_once '../classes/Comment.php';
 
-## Server's date and time. Converting it as per local time.
 $date = date('Y-m-d H:i:s');
 $date = date('c', strtotime($date));
 
@@ -16,7 +10,7 @@ if(isset($_GET['postId']) && isset($_GET['msg'])) {
 	$postId = $_GET['postId'];
 	$msg = clean_input($_GET['msg']);
 		if(!empty($postId) && !empty($msg)) {
-			if(true) {				
+			if(true) {
 				$comment = new Comment();
 				$comment->setPostId($postId);//next iteration post id is going to be grabbed from the caller.
 				$comment->setTheComment($msg);

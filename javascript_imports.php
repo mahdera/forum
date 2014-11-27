@@ -13,8 +13,7 @@
       });
 
       $('.text-holder').keypress(function(e) {
-        if(e.which == 13) {
-          //var val = $(msg).val();
+        if(e.which == 13) {//this is the ASCI code for Enter key
           var val = $(this).val();
           var crudId = $(this).attr('id');
           var tokens = crudId.split("-");
@@ -26,8 +25,8 @@
             type: 'GET',
             data: 'msg='+encodeURIComponent(val)+'&postId='+postId,
             success: function(data) {
-              $(msg).val('');
-              $(msg).css('height','14px');
+              $('.text-holder').val('');
+              $('.text-holder').css('height','14px');
               $('#' + divId).append(data);
               $('.time').timeago();
             }
@@ -69,11 +68,45 @@
             type: 'POST',
             data: 'thePost='+encodeURIComponent(thePost)+'&topic='+encodeURIComponent(topic),
             success: function(data) {
+              $('#textareapost').val('');
+              $('#textareatopic').val('');
               $('#reloadSection').load('fetchlatestupdate.php');
             }
           });
         }else{
           alert('Enter topic and post text!');
+        }
+      });
+
+      $('.deletePost').click(function(){
+        if(window.confirm('Are you sure you want to delete this post and its associated comments?')){
+          var crudId = $(this).attr('id');
+          var tokens = crudId.split("-");
+          var postId = tokens[1];
+          $.ajax({
+            url: 'php/ajax_post_delete.php',
+            type: 'POST',
+            data: 'postId='+postId,
+            success: function(response){
+              $('#reloadSection').load('fetchlatestupdate.php');
+            }
+          });
+        }
+      });
+
+      $('.deleteComment').click(function(){
+        if(window.confirm('Are you sure you want to delete this comment?')){
+          var crudId = $(this).attr('id');
+          var tokens = crudId.split("-");
+          var commentId = tokens[1];
+          $.ajax({
+            url: 'php/ajax_comment_delete.php',
+            type: 'POST',
+            data: 'commentId='+commentId,
+            success: function(response){
+              $('#reloadSection').load('fetchlatestupdate.php');
+            }
+          });
         }
       });
 
